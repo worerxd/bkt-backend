@@ -12,12 +12,6 @@ async function loginUserHandler(req, res) {
       });
     }
 
-    // if (!user.active) {
-    //   return res.status(403).json({
-    //     message: 'Please confirm your email',
-    //   });
-    // }
-
     const isMatch = await user.comparePassword(password);
 
     if (!isMatch) {
@@ -30,10 +24,7 @@ async function loginUserHandler(req, res) {
 
     res.status(200).json({ token });
   } catch (err) {
-    console.log('error en la consola')
     res.status(400).json(err);
-    console.log('email', email)
-    console.log('password', password)
   }
 }
 
@@ -41,7 +32,6 @@ async function changePasswordHandler(req, res) {}
 
 async function verifyAccount(req, res) {
   const { hash } = req.params;
-  // console.log('hast verify', hash);
   try {
     const user = await findOneUser({ passwordResetToken: hash });
     if (!user) {

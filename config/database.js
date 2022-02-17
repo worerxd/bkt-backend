@@ -1,8 +1,5 @@
 const mongoose = require('mongoose');
-const { DB_URI, DB_URI_TEST, NODE_ENV } = process.env;
-console.log('nodeenv', NODE_ENV)
-const URI = NODE_ENV === 'development' ? DB_URI : DB_URI_TEST;
-console.log('uri', URI)
+const URI = process.env.NODE_ENV === 'development' ? process.env.DB_URI_TEST : process.env.DB_URI;
 
 async function connectDB() {
   try {

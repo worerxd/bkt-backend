@@ -16,7 +16,7 @@ async function getAllScholarships() {
  * @returns scholarship created
  */
 async function createScholarship(scholarship) {
-  const newScholarship = await Scholarship.create(scholarship)
+  const newScholarship = await Scholarship.create(scholarship);
   return newScholarship;
 }
 

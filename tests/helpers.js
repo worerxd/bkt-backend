@@ -36,4 +36,22 @@ const initialScholarships = [
   }
 ]
 
-module.exports = { initialScholarships }
+const initialUsers = [
+  {
+    fullName: 'Walther Vergaray',
+    email: 'walther.vergaray@gmail.com',
+    password: '123456'
+  },
+  {
+    fullName: 'Luis Baldeon',
+    email: 'luis.baldeon@gmail.com',
+    password: '123456'
+  },
+  {
+    fullName: 'Raul Lavado',
+    email: 'raul.lavado@gmail.com',
+    password: '123456'
+  },
+]
+
+module.exports = { initialScholarships, initialUsers }

@@ -3,6 +3,7 @@ const express = require('express');
 const expressConfig = require('./config/express')
 const connectDB = require('./config/database')
 const routes = require('./routes')
+const swaggerDocs = require('./config/swagger');
 
 const app = express();
 
@@ -16,6 +17,9 @@ const server = app.listen(PORT, () => {
 
   // Routes
   routes(app);
+
+  // Swagger
+  swaggerDocs(app, 8080)
 
   console.log('server listening on port', PORT)
 });
