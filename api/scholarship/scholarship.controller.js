@@ -1,7 +1,8 @@
 const {
   createScholarship,
   getAllScholarships,
-  getScholarshipById
+  getScholarshipById,
+  updateScholarshipState
 } = require('./scholarship.service');
 
 async function getAllScholarshipsHandler(req, res) {
@@ -37,8 +38,29 @@ async function getScholarshipByIdHandler(req, res) {
   }
 }
 
+async function updateScholarshipStateHandler(req, res) {
+  try {
+    const { id } = req.params;
+    const scholarship = await getScholarshipById(id);
+    scholarship.state = 'approved'
+    const sholarshipUpdated = await updateScholarshipState(id, scholarship);
+    if (!sholarshipUpdated) {
+      return res.status(404).json({
+        message: `Scholarship not found with id: ${id}`
+      })
+    }
+
+    return res.status(200).json(sholarshipUpdated);
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message
+    });
+  }
+}
+
 module.exports = {
   getAllScholarshipsHandler,
   createScholarshipHandler,
-  getScholarshipByIdHandler
+  getScholarshipByIdHandler,
+  updateScholarshipStateHandler
 }

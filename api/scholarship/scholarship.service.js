@@ -4,7 +4,6 @@ const Scholarship = require('./scholarship.model');
  * Get all scholarShips
  * @returns all scholarShips
  */
-
 async function getAllScholarships() {
   const scholarships = await Scholarship.find();
   return scholarships;
@@ -30,8 +29,20 @@ async function getScholarshipById(id) {
   return room;
 }
 
+/**
+ * Get scholarship by id
+ * @param {string} id Indentifier of the user to be filtered
+ * @param {*} scholarship Body of the scholarship to be updated
+ * @returns scholarship updated
+*/
+async function updateScholarshipState(id, scholarship) {
+  const updatedScholarship = await Scholarship.findByIdAndUpdate(id, scholarship, { new: true });
+  return updatedScholarship;
+}
+
 module.exports = {
   getAllScholarships,
   createScholarship,
-  getScholarshipById
+  getScholarshipById,
+  updateScholarshipState
 }

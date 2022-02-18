@@ -5,6 +5,7 @@ const swaggerUi = require('swagger-ui-express');
 const { version } = require('../package.json');
 
 const routesApi = path.join(__dirname, '../api/**/index.js');
+const routesAuth = path.join(__dirname, '../auth/local/index.js');
 
 const options = {
   definition: {
@@ -34,7 +35,7 @@ const options = {
       },
     ],
   },
-  apis: [routesApi],
+  apis: [routesApi, routesAuth],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

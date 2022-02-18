@@ -3,12 +3,12 @@ const { Router } = require('express');
 const {
   createScholarshipHandler,
   getAllScholarshipsHandler,
-  getScholarshipByIdHandler
+  getScholarshipByIdHandler,
+  updateScholarshipStateHandler
 } = require('./scholarship.controller');
 
 const router = Router();
 
-// Get all the scholarships
 /**
  * @swagger
  * components:
@@ -16,6 +16,9 @@ const router = Router();
  *    Scholarship:
  *      type: object
  *      properties:
+ *        _id:
+ *          type: string
+ *          description: The id of the scholarship
  *        title:
  *          type: string
  *          description: The title of the Scholarship
@@ -110,10 +113,92 @@ const router = Router();
  */
 
 /**
- *
+ *  @swagger
+ *  /api/scholarships:
+ *    post:
+ *      summary: create a new scholarship
+ *      tags: [Scholarship]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              $ref: '#/components/schemas/Scholarship'
+ *      responses:
+ *        200:
+ *          description: new scholarship has been created!
+ */
+router.post('/', createScholarshipHandler);
+
+/**
+ *  @swagger
+ *  /api/scholarships:
+ *    get:
+ *      summary: return all scholarships
+ *      tags: [Scholarship]
+ *      responses:
+ *        200:
+ *          description: all scholarships
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: array
+ *                items:
+ *                  $ref: '#/components/schemas/Scholarship'
  */
 router.get('/', getAllScholarshipsHandler);
+
+/**
+ *  @swagger
+ *  /api/scholarships/{id}:
+ *    get:
+ *      summary: return one scholarship
+ *      tags: [Scholarship]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *            type: string
+ *          required: true
+ *          description: the scholarship id
+ *      responses:
+ *        200:
+ *          description: a scholarship
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                $ref: '#/components/schemas/Scholarship'
+ *        404:
+ *          description: scholarship not found
+ */
 router.get('/:id', getScholarshipByIdHandler);
-router.post('/', createScholarshipHandler);
+
+/**
+ *  @swagger
+ *  /api/scholarships/{id}:
+ *    patch:
+ *      summary: return one scholarship with a diferent state
+ *      tags: [Scholarship]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *            type: string
+ *          required: true
+ *          description: the scholarship id
+ *      responses:
+ *        200:
+ *          description: the state of the scholarship has been changed
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                $ref: '#/components/schemas/Scholarship'
+ *        404:
+ *          description: scholarship not found
+ */
+router.patch('/:id', updateScholarshipStateHandler)
 
 module.exports = router;

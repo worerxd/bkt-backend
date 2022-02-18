@@ -60,10 +60,14 @@ const ScholarshipSchema = new mongoose.Schema({
         }
       }
     ]
-  }
+  },
+  state: {
+    type: String,
+    default: 'pending'
+  },
 }, {
   timestamps: true,
 }
 )
 
-module.exports = mongoose.model('Scholarship', ScholarshipSchema)
+module.exports = mongoose.model('Scholarship', ScholarshipSchema);
